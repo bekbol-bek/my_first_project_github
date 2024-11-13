@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Магазин "Всё для вас"</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <!-- Поле поиска -->
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Поиск товаров..." onkeyup="searchProducts()">
+        </div>
+        
+    </header>
+    
+    <section id="catalog">
+        <!-- Товары будут загружаться сюда -->
+    </section>
+
+    <section id="contact">
+        <h2>Контактная информация</h2>
+        <p>Email: bekbolrysbekov@gmail.com</p>
+        <p>Телефон: +996 701 35 50 99</p>
+        <p>Адрес: г. Кыргызстан, ул. Ала-тоо, д. 1</p>
+    </section>
+
+    <footer>
+        <p>Все права защищены &copy; 2024</p>
+    </footer>
+
+    <!-- Подключение JavaScript -->
+    <script>
+        // Массив товаров с данными (включая пути к изображениям)
+        const products = [
+            {
+                id: 1,
+                title: 'Товар 1',
+                description: 'Описание товара 1',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+            {
+                id: 2,
+                title: 'Товар 2',
+                description: 'Описание товара 2',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+            {
+                id: 3,
+                title: 'Товар 3',
+                description: 'Описание товара 3',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+        ];
+    
+        // Функция для динамического создания каталога
+        function generateCatalog() {
+            const catalogSection = document.getElementById('catalog');
+            catalogSection.innerHTML = ""; // Очистка каталога перед добавлением новых товаров
+    
+            products.forEach(product => {
+                const catalogItem = document.createElement('div');
+                catalogItem.classList.add('catalog-item');
+    
+                catalogItem.innerHTML = `
+                    <a href="product.html?id=${product.id}">
+                        <h3>${product.title}</h3>
+                        <img src="${product.image}" alt="Изображение товара ${product.title}" />
+                        <p>${product.description}</p>
+                    </a>
+                `;
+    
+                catalogSection.appendChild(catalogItem);
+            });
+        }
+    
+        // Функция для поиска товаров
+        function searchProducts() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase(); // Приводим текст к нижнему регистру
+            const catalogItems = document.querySelectorAll('.catalog-item');
+    
+            catalogItems.forEach(item => {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                // Скрываем товары, которые не соответствуют запросу
+                if (title.includes(filter)) {
+                    item.style.display = ''; // Показываем товар
+                } else {
+                    item.style.display = 'none'; // Скрываем товар
+                }
+            });
+        }
+    
+        // Вызов функции для генерации каталога товаров
+        generateCatalog();
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Товар</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Магазин "Всё для вас"</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="product-detail">
+        <!-- Здесь будет отображаться информация о товаре -->
+    </section>
+
+    <footer>
+        <p>Все права защищены &copy; 2024</p>
+    </footer>
+
+    <!-- Подключение JavaScript -->
+    <script>
+        // Массив товаров с данными (включая пути к изображениям)
+        const products = [
+            {
+                id: 1,
+                title: 'Товар 1',
+                description: 'Описание товара 1',
+                price: '1000 руб.',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+            {
+                id: 2,
+                title: 'Товар 2',
+                description: 'Описание товара 2',
+                price: '2000 руб.',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+            {
+                id: 3,
+                title: 'Товар 3',
+                description: 'Описание товара 3',
+                price: '3000 руб.',
+                image: 'img/istockphoto-1385970223-612x612.jpg'
+            },
+        ];
+
+        // Функция для отображения информации о товаре
+        function showProductDetails() {
+            // Получаем id товара из URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id')); // Извлекаем id товара из параметра URL
+
+            // Находим товар по id
+            const product = products.find(item => item.id === productId);
+
+            if (product) {
+                const productDetailSection = document.getElementById('product-detail');
+                productDetailSection.innerHTML = `
+                    <h2>${product.title}</h2>
+                    <img src="${product.image}" alt="Изображение товара ${product.title}" />
+                    <p><strong>Описание:</strong> ${product.description}</p>
+                    <p><strong>Цена:</strong> ${product.price}</p>
+                `;
+            } else {
+                document.getElementById('product-detail').innerHTML = '<p>Товар не найден.</p>';
+            }
+        }
+
+        // Вызов функции для отображения информации о товаре
+        showProductDetails();
+    </script>
+</body>
+</html>
